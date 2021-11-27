@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\UnauthorizedException;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -38,4 +42,46 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof ValidationException) {
+            return response()->json([
+                'error' => true,
+                'code' => 400,
+                'message' => "Validation failed",
+                'data' => $e->errors()
+            ], 400);
+        }
+
+        if ($e instanceof ModelNotFoundException) {
+            return response()->json([
+                'error' => true,
+                'code' => 404,
+                'message' => "Model not found",
+                'data' => "Model not found. Model: " . $e->getModel() . ", ID: " . implode(', ', $e->getIds())
+            ], 404);
+        }
+
+        if ($e instanceof MethodNotAllowedHttpException) {
+            return response()->json([
+                'error' => true,
+                'code' => 403,
+                'message' => "Method not allowed",
+                'data' => "Method not allowed:" . $e->getMessage(),
+            ], 403);
+        }
+
+        if ($e instanceof UnauthorizedException) {
+            return response()->json([
+                'error' => true,
+                'code' => 401,
+                'message' => "Unauthorized",
+                'data' => "Unauthorized role : " . $e->getMessage() ,
+            ], 401);
+        }
+
+        return parent::render($request, $e);
+    }
+
 }
