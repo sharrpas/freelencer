@@ -14,6 +14,8 @@ class Status
     public const OTHER_EXCEPTION_THROWN = 500;
     public const USERNAME_NOT_FOUND = 601;
     public const PASSWORD_IS_WRONG = 602;
+    public const UPDATE_COMPLETED_PROJECT = 603;
+    public const DELETE_OTHERS_PROJECT = 604;
 
 
     public static function getMessage($code)
@@ -29,6 +31,8 @@ class Status
             self::OTHER_EXCEPTION_THROWN => "Other exception thrown",
             self::USERNAME_NOT_FOUND => "Username not found",
             self::PASSWORD_IS_WRONG => "Password is wrong",
+            self::UPDATE_COMPLETED_PROJECT => "you can not update completed project",
+            self::DELETE_OTHERS_PROJECT => "you can delete your project only",
         ];
 
         return $messages[$code];

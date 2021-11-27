@@ -22,14 +22,17 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout',[AuthController::class,'logout'])->middleware('auth:sanctum')->name('logout');
 //Route::post('/change-pass',[AuthController::class, 'changePass'])->middleware('auth:sanctum')->name('changePass');
 
-Route::post('/project',[HirerController::class,'store'])->middleware('auth:sanctum')->middleware('role:hirer');
+Route::prefix('/project')->middleware('auth:sanctum')->middleware('role:hirer')->group(function (){
+    Route::get('/',[HirerController::class,'index']);
+    Route::post('/',[HirerController::class,'store']);
+    Route::get('/{project}',[HirerController::class,'show']);
+    Route::patch('/{project}',[HirerController::class,'update']);
+    Route::delete('/{project}',[HirerController::class,'destroy']);
+});
 
 
 
 
 
 
-//todo
-//Route::get('/',function (){
-//   return 'mmm';
-//})->middleware('auth:sanctum')->middleware('role:freelancer');
+
