@@ -16,6 +16,9 @@ class Status
     public const PASSWORD_IS_WRONG = 602;
     public const UPDATE_COMPLETED_PROJECT = 603;
     public const DELETE_OTHERS_PROJECT = 604;
+    public const ALREADY_BID = 605;
+    public const NOT_BID = 606;
+    public const ALREADY_ASSIGNED = 607;
 
 
     public static function getMessage($code)
@@ -33,6 +36,9 @@ class Status
             self::PASSWORD_IS_WRONG => "Password is wrong",
             self::UPDATE_COMPLETED_PROJECT => "you can not update completed project",
             self::DELETE_OTHERS_PROJECT => "you can delete your project only",
+            self::ALREADY_BID => 'You have already bid',
+            self::NOT_BID => 'this user did not bid to your project',
+            self::ALREADY_ASSIGNED => 'The project has already been assigned',
         ];
 
         return $messages[$code];

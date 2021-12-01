@@ -42,4 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function bids()
+    {
+        return $this->belongsToMany(Project::class,'bids')->using(Bid::class);
+    }
+
 }
