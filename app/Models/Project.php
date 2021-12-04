@@ -16,6 +16,11 @@ class Project extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function freelancer()
+    {
+        return $this->belongsTo(User::class, 'freelancer_id');
+    }
+
     public function bidders()
     {
         return $this->belongsToMany(User::class, 'bids')->using(Bid::class)->withTimestamps();

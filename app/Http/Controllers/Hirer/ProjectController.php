@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Hirer;
 
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
@@ -12,7 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class HirerController extends Controller
+class ProjectController extends Controller
 {
 
     public function index()
@@ -78,23 +78,5 @@ class HirerController extends Controller
         return $this->success('project deleted successfully');
     }
 
-    public function bids(Project $project)
-    {
-        return $this->success($project->load('bidders'));//TODO resource
-    }
 
-    public function accept_bid(Project $project, User $user)
-    {
-        if ($project->bidders()->where('user_id', $user->id)->exists()) {
-            if ($project->status == 'open') {
-                $project->update([
-                    'freelancer_id' => $user->id,
-                    'status' => 'done',
-                ]);
-                return $this->success('bid accepted, inform freelancer pleas');
-            }
-            return $this->error(Status::ALREADY_ASSIGNED);
-        }
-        return $this->error(Status::NOT_BID);
-    }
 }

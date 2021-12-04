@@ -20,6 +20,7 @@ class ProjectResource extends JsonResource
             'user' => User::query()->find($this->user_id)->name,
             'title' => $this->title,
             'price' => $this->price,
+            'status' => $this->status,
             'tags' => explode(" ",$this->tags),
         ];
     }
