@@ -17,13 +17,13 @@ class ProjectResourceWithDescription extends JsonResource
     {
         return [
             'id' => $this->id,
-            'freelancer_id' => $this->whenLoaded('freelancer'),
             'user' => User::query()->find($this->user_id)->name,
             'title' => $this->title,
             'description' => $this->description,
             'price' => $this->price,
             'status' => $this->status,
             'tags' => explode(" ", $this->tags),
+            'freelancer' => $this->whenLoaded('freelancer'),
         ];
     }
 }

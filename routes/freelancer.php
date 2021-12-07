@@ -6,11 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/freelancer')->middleware(['auth:sanctum', 'role:freelancer'])->group(function () {
 
-    Route::get('/project', [ProjectController::class, 'index']);
-    Route::get('/project/{project}', [ProjectController::class, 'show']);
+    Route::get('/project', [ProjectController::class, 'index'])->name('freelancer-all-project');
+    Route::get('/project/{project}', [ProjectController::class, 'show'])->name('freelancer-one-project');
 
-    Route::get('/project/bids', [BidController::class, 'index']);
-    Route::post('/project/{project}/bids', [BidController::class, 'store']);
+    Route::get('/bids', [BidController::class, 'index'])->name('freelancer-all-bids');
+    Route::post('/project/{project}/bid', [BidController::class, 'store'])->name('freelancer-add-bid');
 
 
 });

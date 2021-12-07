@@ -71,10 +71,10 @@ class AuthController extends Controller
 
 
     public function changePass(Request $request)
-    {//todo  no route
+    {
         $request->validate([
             'old_pass' => 'required',
-            'new_pass' => 'required',
+            'new_pass' => 'required|confirmed',
         ]);
         $pass_check = Hash::check($request->old_pass, User::query()->where('id', '=', auth()->id())->firstOrFail()->password);
         if ($pass_check) {
@@ -83,7 +83,7 @@ class AuthController extends Controller
             ]);
             return $this->success(1,'password changed to ' . $request->new_pass);
         } else {
-            return $this->error();
+            return $this->error('token ERROR');
         }
     }
 }

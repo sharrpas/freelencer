@@ -25,5 +25,4 @@ class ProjectController extends Controller
         //todo
     }
 
-    //    return  $m->load('bidders');
 }

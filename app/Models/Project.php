@@ -25,4 +25,21 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class, 'bids')->using(Bid::class)->withTimestamps();
     }
+
+    public function addFreelancer(User $freelancer)
+    {
+        $this->freelancer_id = $freelancer->id;
+        return $this;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function execute()
+    {
+        $this->save();
+    }
 }
